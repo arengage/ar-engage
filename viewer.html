@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AR Redirect</title>
+
+  <script>
+    (function () {
+      /* ------------------------
+         1. Read ?file=<model.glb>
+      -------------------------*/
+      const params   = new URLSearchParams(location.search);
+      const fileParm = params.get('file');
+      if (!fileParm) { document.body.textContent = 'Missing ?file='; return; }
+
+      /* ------------------------
+         2. Resolve to absolute URL
+      -------------------------*/
+      const fileURL = fileParm.startsWith('http')
+        ? fileParm                                           // absolute given
+        : `${location.origin}/${fileParm.replace(/^\.?\/*/, '')}`; // relative → abs
+
+      const glb  = encodeURIComponent(fileURL);
+      const usdz = fileURL.replace(/\.glb$/i, '.usdz');      // same name, .usdz
+
+      /* ------------------------
+         3. Device-specific redirect
+      -------------------------*/
+      const ua = navigator.userAgent || '';
+      if (/android/i.test(ua)) {           // Android → Scene Viewer
+        location.href =
+          `intent://arvr.google.com/scene-viewer/1.0` +      /* official endpoint */
+          `?file=${glb}&mode=ar_preferred` +
+          `#Intent;scheme=https;package=com.google.ar.core;` +
+          `action=android.intent.action.VIEW;end;`;          /* spec format[8] */
+      } else if (/(iphone|ipad|ipod)/i.test(ua)) {           // iOS → Quick Look
+        location.href = usdz;                                /* opens in AR[10] */
+      } else {                                              // desktop or other
+        location.href = fileURL;                            // just show the file
+      }
+    })();
+  </script>
+</head>
+<body>Redirecting…</body>
+</html>
