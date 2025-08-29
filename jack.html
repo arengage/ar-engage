@@ -8,7 +8,7 @@
     
     if (/Android/i.test(navigator.userAgent)) {
       // Android: Use intent
-      window.location.href = `intent://arvr.google.com/scene-viewer/1.0?file=${modelUrl}&title=Get+Your+Name+Here+Today--Go+To+Link&mode=ar_preferred&link=https://wa.me/message/VBI3YF6YMVGFE1?src=qr#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
+      window.location.href = `intent://arvr.google.com/scene-viewer/1.0?file=${modelUrl}&title=Give Us a Review & Get+Your+Name+Here+Today--Go+To+Link&mode=ar_preferred&link=https://wa.me/message/VBI3YF6YMVGFE1?src=qr#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
     } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
       // iOS: Open USDZ in AR Quick Look
       window.location.href = usdzUrl; 
