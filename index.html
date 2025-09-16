@@ -12,15 +12,16 @@
     } 
 
     else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-      // iOS: Dynamically create AR Quick Look anchor
-      const a = document.createElement('a');
-      a.setAttribute('rel', 'ar');
-      a.setAttribute('href', usdzUrl);
-      // Optionally set AR preview image
-      a.setAttribute('aria-label', 'View in AR');
-      document.body.appendChild(a);
-      a.click();
-    }
+          // iOS: Create anchor to open AR Quick Look
+          window.onload = function() {
+            const a = document.createElement('a');
+            a.setAttribute('rel', 'ar');
+            a.setAttribute('href', usdzUrl);
+            a.setAttribute('style', 'display:none');
+            document.body.appendChild(a);
+            a.click();
+          };
+        }
 
     else {
       // Desktop/unsupported: Show 3D model viewer
@@ -30,5 +31,7 @@
 </head>
 <body>
   Redirecting to AR...
+    <p>If AR does not open automatically, <a rel="ar" href="https://raw.githubusercontent.com/wasiongit/ar-engage/refs/heads/main/models/nike-jordan.usdz">tap here to view in AR on iOS</a>.</p>
+
 </body>
 </html>
