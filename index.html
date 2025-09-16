@@ -10,15 +10,9 @@
       // Android: Use intent
       window.location.href = `intent://arvr.google.com/scene-viewer/1.0?file=${modelUrl}&title=Create+Your+Own+Items+Today&mode=ar_preferred&disable_occlusion=true&link=https://www.arengage.com/#Intent;scheme=https;package=com.google.ar.core;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
     } else if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-      // iOS: Open USDZ in AR Quick Look
-      // window.location.href = usdzUrl;
-          // iOS: Create hidden <a rel="ar"> and trigger click
-        const a = document.createElement("a");
-        a.setAttribute("rel", "ar");
-        a.setAttribute("href", usdzUrl);
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+      setTimeout(() => {
+        window.location.href = usdzUrl; // may still download if MIME wrong
+      }, 500);
     } else {
       // Desktop/unsupported: Show 3D model viewer
       window.location.href = "https://www.arengage.com";
